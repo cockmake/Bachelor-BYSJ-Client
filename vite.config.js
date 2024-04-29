@@ -1,0 +1,33 @@
+import Path from 'path';
+import vuePlugin from "@vitejs/plugin-vue";
+import {defineConfig} from "vite";
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
+
+/**
+ * https://vitejs.dev/config
+ */
+const config = defineConfig({
+    root: Path.join(__dirname, 'src', 'renderer'),
+    publicDir: 'public',
+    server: {
+        port: 8080,
+    },
+    open: false,
+    build: {
+        outDir: Path.join(__dirname, 'build', 'renderer'),
+        emptyOutDir: true,
+    },
+    plugins: [
+        vuePlugin(),
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+        }),
+        Components({
+            resolvers: [ElementPlusResolver()],
+        }),
+    ],
+});
+
+module.exports = config;
